@@ -1,68 +1,115 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+OBS.: toda vez que for utilizar uma variável no HTML dentro
+      de um JavaCript deve utilizar { }
 
-## Available Scripts
+O parâmetro props (Propriedade "pai") é passado dentro de uma função. Quando utiliza a { } realizo a desestruturação do parâmetro, especificando quais parâmetros vou utilizar.
 
-In the project directory, you can run:
+Quando utilizo props, estou utilizando todos.
+    
+    ***** EXEMPLO SEM DESESTRUTURAÇÃO *****
+    No componente
 
-### `yarn start`
+        export default function Header(props){
+            return(
+                <header>
+                    <h1>{props.title}</h1>
+                </header>
+            );
+        }
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+    Na utilização do componente
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+        import React from 'react';
+        import Header from './Header';
 
-### `yarn test`
+        function App() {
+        return (
+            <Header title="Semana OmniStack"/>
+        );
+        }
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+        export default App;
+        
+        
+        ***** EXEMPLO COM DESESTRUTURAÇÃO: { Children } *****
+        
+        No componente
 
-### `yarn build`
+        export default function Header({children}){
+        return(
+            <header>
+                <h1>{children}</h1>
+            </header>
+            );
+        }
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+        Na utilização do componente
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+        import React from 'react';
+        import Header from './Header';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+        function App() {
+        return (
+            <Header>
+            Semana OmniStack
+            </Header>
+        );
+        }
 
-### `yarn eject`
+        export default App;
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+***********************************************
+Conceito de Estado / Imutabilidade
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Toda vez que o estado for alterado o componente vai ser renderizado NOVAMENTE exibendo a informação em tela.
 
-## Learn More
+No React não é possível alterar a variável do estado de 
+forma direta, para isso á preciso utilizar o array, este
+é o conceito de imutabilidade.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Quando utilizamos o useState() ele retorna um array de 
+duas posições, sendo:
+    Array [valor, funcaoDeAtualozacao]
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    A função consegue trocar o valor do array indice 0
 
-### Code Splitting
+    Exemplo contador:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+        import React, { useState } from 'react';
+        import Header from './Header';
 
-### Analyzing the Bundle Size
+        function App() {
+        
+        const [counter,setCouter]= useState(0);
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+        function increment(){
+            setCouter(counter + 1);
 
-### Making a Progressive Web App
+        }
+        return (
+            <div>
+            <Header>
+            Contador: {counter}
+            </Header>
+            <button onClick={increment}> Incrementar</button>
+            </div>
+        );
+        }
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+        export default App;
 
-### Advanced Configuration
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+*****************************************************
+Para lidar com rotas dentro do React utilizamos o pacote
 
-### Deployment
+npm install react-router-dom
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `yarn build` fails to minify
+********************************************************
+Para instalar um Cliente HTTP para acesso ao dados do back-end
+Ele é responsavel por fazer as chamadas para a api do bac-end
+e obter a resposta.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+npm install axios
+
